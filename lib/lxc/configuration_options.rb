@@ -18,7 +18,10 @@ module LXC
       'lxc.cap.drop',
       'lxc.cgroup.memory.limit_in_bytes',
       'lxc.cgroup.memory.memsw.limit_in_bytes',
-      'lxc.cgroup.cpu.shares'
+      'lxc.cgroup.cpu.shares',
+      'lxc.devttydir',
+      'lxc.arch',
+      'lxc.pivotdir'
     ]
 
     protected
