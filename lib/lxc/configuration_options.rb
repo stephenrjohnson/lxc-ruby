@@ -15,7 +15,9 @@ module LXC
       'lxc.mount.entry',
       'lxc.rootfs',
       'lxc.cgroup',
-      'lxc.cap.drop'
+      'lxc.cap.drop',
+      'lxc.cgroup.memory.limit_in_bytes',
+      'lxc.cgroup.memory.memsw.limit_in_bytes'
     ]
 
     protected

@@ -101,6 +101,14 @@ module LXC
       LXC.run('cgroup', '-n', name, 'memory.limit_in_bytes').strip.to_i
     end
 
+
+    # Set container memory limit in bytes
+    # @return [boolean]
+    def set_memory_limit(limit)
+      LXC.run('cgroup', '-n', name, "memory.limit_in_bytes #{limit}").strip.to_i
+      self.memory_limit == limit ? true : false
+    end
+
     # Get container processes
     # @return [Array] list of all processes
     def processes

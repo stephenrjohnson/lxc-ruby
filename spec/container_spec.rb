@@ -58,6 +58,18 @@ describe LXC::Container do
     subject.memory_limit.should eq(268435456)
   end
 
+  it 'should set the memory limit' do
+    stub_lxc('cgroup', '-n', 'app', 'memory.limit_in_bytes 268435456') { "" }
+    stub_lxc('cgroup', '-n', 'app', 'memory.limit_in_bytes') { "268435456\n" }
+    subject.set_memory_limit(268435456).should eq (true)
+  end
+
+  it 'false setting the memory limit' do
+    stub_lxc('cgroup', '-n', 'app', 'memory.limit_in_bytes 268435456') { "" }
+    stub_lxc('cgroup', '-n', 'app', 'memory.limit_in_bytes') { "235456\n" }
+    subject.set_memory_limit(268435456).should eq (false)
+  end
+
   context '.processes' do
     it 'raises error if container is not running' do
       stub_lxc('info', '-n', 'app') { fixture('lxc-info-stopped.txt') }
