@@ -126,6 +126,20 @@ module LXC
       LXC.run('cgroup', '-n', name, "cpu.shares").strip.to_i
     end
 
+    # Get cpuusage is seconds
+    # @return [Integer]
+    def cpuusage
+      LXC.run('cgroup', '-n', name, "cpuacct.usage").strip.to_i / 1E9
+    end
+
+    # Get percentcpu used 
+    # @return [Integer]
+    def percentcpu
+      total = `cat /sys/fs/cgroup/cpuacct/cpuacct.usage`.strip.to_i / 1E9
+      container = self.cpuusage
+      ((container / total) * 100).to_i
+    end
+
     # Set container swap memory limit in bytes
     # @return [boolean]
     def set_cpushares(share)

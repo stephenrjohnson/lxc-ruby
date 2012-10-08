@@ -60,12 +60,12 @@ describe LXC::Container do
 
   it 'should set the memory limit' do
     stub_lxc('cgroup', '-n', 'app', 'memory.limit_in_bytes 268435456') { "" }
-    subject.set_memory_limit(268435456).should eq (true)
+    subject.set_memory_limit(268435456).should eq(true)
   end
 
   it 'fails setting the memory limit' do
     stub_lxc('cgroup', '-n', 'app', 'memory.limit_in_bytes 268435456') { "error blah blah" }
-    subject.set_memory_limit(268435456).should eq (false)
+    subject.set_memory_limit(268435456).should eq(false)
   end
 
   it 'returns the swap memory limit' do
@@ -75,12 +75,12 @@ describe LXC::Container do
 
   it 'should set the swap memory limit' do
     stub_lxc('cgroup', '-n', 'app', 'memory.memsw.limit_in_bytes 268435456') { "" }
-    subject.set_memorysw_limit(268435456).should eq (true)
+    subject.set_memorysw_limit(268435456).should eq(true)
   end
 
   it 'fails setting the swap memory limit' do
     stub_lxc('cgroup', '-n', 'app', 'memory.memsw.limit_in_bytes 268435456') { "error blah" }
-    subject.set_memorysw_limit(268435456).should eq (false)
+    subject.set_memorysw_limit(268435456).should eq(false)
   end
 
   it 'returns the cpu shares' do
@@ -90,14 +90,24 @@ describe LXC::Container do
 
   it 'should set the cpu shares' do
     stub_lxc('cgroup', '-n', 'app', 'cpu.shares 512') { "\n" }
-    subject.set_cpushares(512).should eq (true)
+    subject.set_cpushares(512).should eq(true)
   end
 
   it 'fails setting the cpu shares' do
     stub_lxc('cgroup', '-n', 'app', 'cpu.shares 512') { "error blah" }
-    subject.set_cpushares(512).should eq (false)
+    subject.set_cpushares(512).should eq(false)
   end
 
+  it 'returns the cpu usage' do
+    stub_lxc('cgroup', '-n', 'app', 'cpuacct.usage') { "1000000000\n" }
+    subject.cpuusage.should eq(1.0)
+  end
+
+  it 'returns the percent cpu usage' do
+    stub_lxc('cgroup', '-n', 'app', 'cpuacct.usage') { "1000000000\n" }
+    subject.should_receive(:`).with("cat /sys/fs/cgroup/cpuacct/cpuacct.usage").and_return("1000000000")
+    subject.percentcpu.should eq(100)
+  end
 
   context '.processes' do
     it 'raises error if container is not running' do
