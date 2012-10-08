@@ -84,6 +84,14 @@ c.unfreeze
 # Get container memory usage (in bytes)
 c.memory_usage
 c.memory_limit
+c.memorysw_limit
+c.cpushares
+c.cpuusage
+
+# Set memory limit
+c.set_memory_limit("100M")
+c.set_memorysw_limit("200M")
+c.set_cpushares(512)
 
 # Get running processes
 c.processes 
