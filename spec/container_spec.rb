@@ -64,10 +64,27 @@ describe LXC::Container do
     subject.set_memory_limit(268435456).should eq (true)
   end
 
-  it 'false setting the memory limit' do
+  it 'fails setting the memory limit' do
     stub_lxc('cgroup', '-n', 'app', 'memory.limit_in_bytes 268435456') { "" }
     stub_lxc('cgroup', '-n', 'app', 'memory.limit_in_bytes') { "235456\n" }
     subject.set_memory_limit(268435456).should eq (false)
+  end
+
+  it 'returns the memory limit' do
+    stub_lxc('cgroup', '-n', 'app', 'memory.memsw.limit_in_bytes') { "268435456\n" }
+    subject.memorysw_limit.should eq(268435456)
+  end
+
+  it 'should set the memory limit' do
+    stub_lxc('cgroup', '-n', 'app', 'memory.memsw.limit_in_bytes 268435456') { "" }
+    stub_lxc('cgroup', '-n', 'app', 'memory.memsw.limit_in_bytes') { "268435456\n" }
+    subject.set_memorysw_limit(268435456).should eq (true)
+  end
+
+  it 'fails setting the memory limit' do
+    stub_lxc('cgroup', '-n', 'app', 'memory.memsw.limit_in_bytes 268435456') { "" }
+    stub_lxc('cgroup', '-n', 'app', 'memory.memsw.limit_in_bytes') { "235456\n" }
+    subject.set_memorysw_limit(268435456).should eq (false)
   end
 
   context '.processes' do

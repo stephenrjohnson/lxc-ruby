@@ -109,6 +109,19 @@ module LXC
       self.memory_limit == limit ? true : false
     end
 
+    # Get container swap memory limit in bytes
+    # @return [Integer]
+    def memorysw_limit
+      LXC.run('cgroup', '-n', name, "memory.memsw.limit_in_bytes").strip.to_i
+    end
+
+    # Set container swap memory limit in bytes
+    # @return [boolean]
+    def set_memorysw_limit(limit)
+      LXC.run('cgroup', '-n', name, "memory.memsw.limit_in_bytes #{limit}").strip.to_i
+      self.memorysw_limit == limit ? true : false
+    end
+
     # Get container processes
     # @return [Array] list of all processes
     def processes
