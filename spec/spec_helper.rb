@@ -1,13 +1,9 @@
 $:.unshift File.expand_path("../..", __FILE__)
 
-require 'rack/test'
 require 'json'
-
 require 'lib/lxc'
-require 'lib/lxc/server'
 
 RSpec.configure do |conf|
-  conf.include Rack::Test::Methods
 end
 
 def fixture_path(filename=nil)
@@ -22,10 +18,6 @@ end
 def stub_lxc(command, *args)
   output = yield
   LXC.should_receive(:run).with(command, *args).and_return(output)
-end
-
-def app
-  LXC::Server
 end
 
 def parse_json(data)
