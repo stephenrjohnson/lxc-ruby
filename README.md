@@ -8,7 +8,7 @@ Provides a simple ruby dsl and json API to manage containers.
 
 This library uses Travis-CI service for automated tests.
 
-[![Build Status](https://secure.travis-ci.org/sosedoff/lxc-ruby.png?branch=master)](http://travis-ci.org/sosedoff/lxc-ruby)
+[![Build Status](https://secure.travis-ci.org/stephenrjohnson/lxc-ruby.png?branch=master)](https://travis-ci.org/#!/stephenrjohnson/lxc-ruby)
 
 ## Requirements
 
