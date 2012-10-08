@@ -83,6 +83,22 @@ describe LXC::Container do
     subject.set_memorysw_limit(268435456).should eq (false)
   end
 
+  it 'returns the cpu shares' do
+    stub_lxc('cgroup', '-n', 'app', 'cpu.shares') { "1024\n" }
+    subject.cpushares.should eq(1024)
+  end
+
+  it 'should set the cpu shares' do
+    stub_lxc('cgroup', '-n', 'app', 'cpu.shares 512') { "\n" }
+    subject.set_cpushares(512).should eq (true)
+  end
+
+  it 'fails setting the cpu shares' do
+    stub_lxc('cgroup', '-n', 'app', 'cpu.shares 512') { "error blah" }
+    subject.set_cpushares(512).should eq (false)
+  end
+
+
   context '.processes' do
     it 'raises error if container is not running' do
       stub_lxc('info', '-n', 'app') { fixture('lxc-info-stopped.txt') }

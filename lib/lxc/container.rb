@@ -120,6 +120,18 @@ module LXC
       LXC.run('cgroup', '-n', name, "memory.memsw.limit_in_bytes #{limit}").strip == '' ? true : false
     end
 
+    # Get cpushares
+    # @return [Integer]
+    def cpushares
+      LXC.run('cgroup', '-n', name, "cpu.shares").strip.to_i
+    end
+
+    # Set container swap memory limit in bytes
+    # @return [boolean]
+    def set_cpushares(share)
+      LXC.run('cgroup', '-n', name, "cpu.shares #{share}").strip == '' ? true : false
+    end
+
     # Get container processes
     # @return [Array] list of all processes
     def processes
