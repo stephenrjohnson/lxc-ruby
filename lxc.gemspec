@@ -5,9 +5,9 @@ Gem::Specification.new do |s|
   s.version     = LXC::VERSION
   s.summary     = "Ruby wrapper to LXC"
   s.description = "Ruby wrapper to manage LXC (Linux Containers)."
-  s.homepage    = "http://github.com/sosedoff/lxc"
-  s.authors     = ["Dan Sosedoff"]
-  s.email       = ["dan.sosedoff@gmail.com"]
+  s.homepage    = "http://github.com/stephenrjohnson/lxc-ruby"
+  s.authors     = ["Stephen Johnson","Dan Sosedoff"]
+  s.email       = ["Stephen Johnson","dan.sosedoff@gmail.com"]
   
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec',     '~> 2.6'
