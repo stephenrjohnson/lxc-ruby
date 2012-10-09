@@ -49,6 +49,12 @@ module LXC
       names.map { |name| Container.new(name) }
     end
 
+    # Get a list of all available containers
+    # @return [Array]
+    def lscontainers
+      names = LXC.run('ls').split("\n").uniq
+    end
+
     # Get current LXC version
     # @return [String] current LXC version
     def version
