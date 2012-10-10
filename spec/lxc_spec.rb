@@ -72,6 +72,14 @@ describe LXC do
     list.first.name.should eq('vm0')
   end
 
+  it 'returns list of all available containers' do
+    stub_lxc('ls') { "vm0\nvm1\nvm0" }
+    list = LXC.lscontainers
+    list.should be_an Array
+    list.size.should eq(2)
+    list.should include('vm0')
+  end
+
   it 'returns filtered list of containers' do
     stub_lxc('ls') { "vm0\nvm1\nfoo\n"}
     list = LXC.containers("vm")
