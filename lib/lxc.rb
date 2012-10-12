@@ -41,6 +41,13 @@ module LXC
       LXC::Container.new(name)
     end
 
+    # Create disk image
+    # @param [path] path container path
+    # @return [LXC::DiskImage] diskimage instance
+    def diskimage(path)
+      LXC::DiskImage.new(path)
+    end
+    
     # Get a list of all available containers
     # @param [String] filter select containers that match string
     # @return [Array] array of LXC::Containers
